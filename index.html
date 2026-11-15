@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>πcubed: Class 9 and 10 Maths</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f5fd;--bgimg:linear-gradient(160deg,#eaf2ff 0%,#f3eeff 55%,#fff1ee 100%);--grid:#dbe4f5;--ink:#16265c;--mute:#5b6788;--card:#ffffff;--line:#c7d3ee;--pen:#d9304f;--ok:#17803d;--okbg:#e4f6ea;--badbg:#fde6ea;--btn:#16265c;--btnt:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1530;--bgimg:linear-gradient(160deg,#0f1530 0%,#1a1642 60%,#2a1838 100%);--grid:#1c2650;--ink:#e6ebff;--mute:#9aa6d0;--card:#162046;--line:#2c3a70;--pen:#ff6b86;--ok:#5fd68a;--okbg:#123a25;--badbg:#45182a;--btn:#e6ebff;--btnt:#0f1530}}
+:root[data-theme="dark"]{--bg:#0f1530;--bgimg:linear-gradient(160deg,#0f1530 0%,#1a1642 60%,#2a1838 100%);--grid:#1c2650;--ink:#e6ebff;--mute:#9aa6d0;--card:#162046;--line:#2c3a70;--pen:#ff6b86;--ok:#5fd68a;--okbg:#123a25;--badbg:#45182a;--btn:#e6ebff;--btnt:#0f1530}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;font-family:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);background-color:var(--bg);background-image:var(--bgimg);background-attachment:fixed;min-height:100vh;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+@media(min-width:900px){.wrap{padding-top:32px}}
+h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.05;margin:8px 0 10px;font-weight:800;letter-spacing:-.02em}
+.sub{color:var(--mute);max-width:52ch;margin:0 0 18px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600;font-size:.9rem;color:var(--mute)}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.bar{display:flex;gap:16px;flex-wrap:wrap;margin:6px 0 22px}
+.stat b{font-size:1.5rem;display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.ch{background:var(--card);border:1.5px solid var(--ink);border-radius:6px;padding:14px;text-align:left;font:inherit;color:inherit;cursor:pointer;display:flex;flex-direction:column;gap:6px;box-shadow:3px 3px 0 var(--ink);transition:transform .12s,box-shadow .12s}
+.ch:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.ch:focus-visible,.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--pen);outline-offset:2px}
+.ch .n{font-weight:800;font-size:1.6rem;color:var(--pen);line-height:1}
+.ch .t{font-weight:600}
+.ch .m{font-size:.85rem;color:var(--mute);display:flex;justify-content:space-between;gap:8px}
+.tag{font-weight:600}.tag.free{color:var(--ok)}.tag.lock{color:var(--pen)}
+.btn{background:var(--btn);color:var(--btnt);border:0;border-radius:6px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.bundle{margin:24px 0 0;padding:16px;border:1.5px dashed var(--ink);border-radius:6px;background:var(--card);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.card{background:var(--card);border:1.5px solid var(--ink);border-radius:6px;padding:18px;box-shadow:3px 3px 0 var(--ink)}
+.q{font-size:1.25rem;font-weight:600;margin:6px 0 14px}
+.opt{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--bg);border:1.5px solid var(--line);border-radius:6px;padding:11px 14px;margin:8px 0;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.ok{background:var(--okbg);border-color:var(--ok)}.opt.bad{background:var(--badbg);border-color:var(--pen)}
+.opt:disabled{cursor:default}
+.exp{margin-top:12px;padding:10px 12px;border-left:3px solid var(--ok);background:var(--okbg);border-radius:4px}
+.prog{height:6px;background:var(--line);border-radius:3px;margin:10px 0 4px}.prog i{display:block;height:100%;background:var(--pen);border-radius:3px}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.note{font-size:.85rem;color:var(--mute)}
+.modal{position:fixed;inset:0;background:rgba(10,15,40,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:20}
+.modal .card{max-width:400px;width:100%}
+.hide{display:none!important}
+.rowc{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--line)}.rowc:first-child{border-top:0}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:14px}.logo{width:40px;height:40px;border-radius:10px;background:var(--btn);color:var(--btnt);display:grid;place-items:center;font-size:1.7rem;font-weight:800;line-height:1}.wm{font-size:2rem;font-weight:800;letter-spacing:-.02em}.foot{margin-top:36px;text-align:center;font-size:.85rem;color:var(--mute)}
+.big{font-size:3rem;font-weight:800;color:var(--pen);line-height:1}
+@media(prefers-reduced-motion:reduce){.ch{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><span class="wm" id="wm" style="cursor:pointer">πcubed</span></div>
+  <div class="top"><span class="pill" id="clspill"></span><span class="pill" id="owned"></span></div>
+  <div id="landing"><h1>Class 9 and 10 Maths: question banks and test papers in one place.</h1><p class="sub">Pick your class. Every chapter has a free quiz, plus question banks, test papers and solutions as PDFs.</p><div class="grid"><button class="ch" id="l9"><span class="n">9</span><span class="t">Class 9th</span><span class="m"><span>14 chapters</span><span class="tag free">Open</span></span></button><button class="ch" id="l10"><span class="n">10</span><span class="t">Class 10th</span><span class="m"><span>14 chapters</span><span class="tag free">Open</span></span></button></div><div class="row" style="justify-content:flex-start"><button class="btn ghost" id="libBtn">My library</button></div></div>
+  <div id="lib" class="hide"></div>
+  <div id="home" class="hide">
+    <h1>Chapter-wise practice for Class 9 and 10 Maths.</h1>
+    <p class="sub">Free MCQ quizzes for every chapter, plus question banks, test papers and solutions as PDFs for exam prep.</p>
+    <div class="row" style="justify-content:flex-start;margin:0 0 16px"><button class="btn" id="c9">Class 9</button><button class="btn ghost" id="c10">Class 10</button></div><div class="grid" id="grid"></div>
+    <div class="bundle"><div><b>Full Maths bundle</b><div class="note" id="bundleNote"></div></div><button class="btn" id="bundleBtn">Unlock all chapters</button></div>
+  </div>
+  <div id="quiz" class="hide"></div>
+  <div class="foot">© πcubed</div>
+</div>
+<div id="modal" class="modal hide" role="dialog" aria-modal="true"><div class="card" id="mbody"></div></div>
+
+<script>
+/* ---- EDIT THIS SECTION: your prices and questions ---- */
+var CONFIG={qbPrice:49,testPrice:39,solPrice:39,bundle:1500,freeQB:3};/* freeQB = question banks of chapters 1 to this number are free */
+/* Q(question, [four options], indexOfCorrectOption, explanation) */
+function Q(q,o,a,e){return{q:q,o:o,a:a,e:e}}
+/* pdf:{p:"link to practice set PDF",t:"link to toughest questions PDF"} goes on each chapter once uploaded */
+var CH9=[
+{t:"Orienting Yourself: The Use of Coordinates",qs:[
+Q("The point (−3, 4) lies in which quadrant?",["I","II","III","IV"],1,"x is negative and y is positive, which is Quadrant II."),
+Q("The abscissa of (5, −2) is…",["5","−2","3","7"],0,"The abscissa is the x-coordinate."),
+Q("Which point lies on the y-axis?",["(0, 4)","(4, 0)","(4, 4)","(−4, 4)"],0,"Points on the y-axis have x = 0."),
+Q("The distance of (3, 4) from the origin is…",["5","7","12","√7"],0,"d = √(3² + 4²) = √25 = 5."),
+Q("The midpoint of (2, 4) and (6, 8) is…",["(4, 6)","(8, 12)","(3, 5)","(2, 2)"],0,"Average the x-values and the y-values: (4, 6)."),
+Q("The point (−2, −7) lies in which quadrant?",["I","II","III","IV"],2,"Both coordinates are negative, which is Quadrant III."),
+Q("The distance between (1, 2) and (4, 6) is…",["5","7","25","√7"],0,"d = √(3² + 4²) = 5."),
+Q("The coordinates of the origin are…",["(0, 0)","(1, 1)","(0, 1)","(1, 0)"],0,"The axes cross at (0, 0)."),
+Q("Which point lies on the x-axis?",["(7, 0)","(0, 7)","(7, 7)","(−7, 7)"],0,"Points on the x-axis have y = 0."),
+Q("The midpoint of (−2, 3) and (4, −1) is…",["(1, 1)","(2, 2)","(3, 1)","(1, 2)"],0,"((−2 + 4)/2, (3 − 1)/2) = (1, 1).")]},
+{t:"Introduction to Linear Polynomials",qs:[
+Q("The degree of p(x) = 3x + 5 is…",["0","1","2","5"],1,"The highest power of x is 1."),
+Q("The value of p(x) = 2x − 3 at x = 4 is…",["5","8","11","−1"],0,"p(4) = 2(4) − 3 = 5."),
+Q("The graph of y = 2x + 1 is…",["A parabola","A straight line","A circle","A point"],1,"Every linear polynomial graphs as a straight line."),
+Q("The zero of p(x) = x − 5 is…",["−5","5","0","1"],1,"p(5) = 5 − 5 = 0."),
+Q("The zero of p(x) = 2x + 6 is…",["3","−3","6","−6"],1,"2x + 6 = 0 gives x = −3."),
+Q("For p(x) = ax + b, the value p(0) is…",["a","b","0","a + b"],1,"p(0) = a(0) + b = b."),
+Q("Which of these is a linear polynomial?",["x² + 1","3x − 7","1/x + 2","x³"],1,"Only 3x − 7 has x to the power 1 and nothing higher."),
+Q("For p(x) = 5x − 2, the value p(1) is…",["3","7","−7","5"],0,"p(1) = 5 − 2 = 3."),
+Q("The graph of y = 3x passes through…",["(0, 0)","(0, 3)","(3, 0)","(1, 1)"],0,"At x = 0, y = 0."),
+Q("The graph of y = x + 2 crosses the y-axis at…",["(0, 2)","(2, 0)","(0, −2)","(−2, 0)"],0,"At x = 0, y = 2.")]},
+{t:"The World of Numbers",qs:[
+Q("Which of these is an irrational number?",["√16","√2","0.333…","3/7"],1,"√2 cannot be written as p/q."),
+Q("The decimal expansion of 1/3 is…",["Terminating","Non-terminating, recurring","Non-terminating, non-recurring","None of these"],1,"1/3 = 0.333…, and the 3 repeats forever."),
+Q("Which is a rational number between 1 and 2?",["√2","π","3/2","√3"],2,"3/2 = 1.5 is a fraction of integers."),
+Q("√9 is…",["Irrational","Rational","Imaginary","Neither"],1,"√9 = 3, which is rational."),
+Q("0.5 written as p/q is…",["1/2","1/5","5","2"],0,"0.5 = 5/10 = 1/2."),
+Q("The decimal expansion of π is…",["Terminating","Non-terminating, recurring","Non-terminating, non-recurring","Recurring"],2,"π is irrational, so its digits never end or repeat."),
+Q("Between any two rational numbers there are…",["No rational numbers","Exactly one","Exactly two","Infinitely many"],3,"You can always find another one in between."),
+Q("Which of these is rational?",["√3","√5","√25","√7"],2,"√25 = 5."),
+Q("√2 can be placed on the number line using…",["A right triangle with two unit sides","A circle of radius 2","A square of side 2","A line of length 1.5"],0,"The hypotenuse of a right triangle with legs 1 and 1 is √2."),
+Q("Every integer is a…",["Irrational number","Rational number","Neither","Imaginary number"],1,"Any integer n can be written as n/1.")]},
+{t:"Exploring Algebraic Identities",qs:[
+Q("(a + b)² equals…",["a² + b²","a² + 2ab + b²","a² − 2ab + b²","a² + ab + b²"],1,"The standard identity for the square of a sum."),
+Q("(a + b)(a − b) equals…",["a² + b²","a² − b²","a² − 2ab + b²","2a"],1,"The +ab and −ab cancel."),
+Q("(a − b)² equals…",["a² − b²","a² + 2ab + b²","a² − 2ab + b²","a² + b²"],2,"The standard identity for the square of a difference."),
+Q("101² equals…",["10201","10101","10001","10200"],0,"(100 + 1)² = 10000 + 200 + 1."),
+Q("99 × 101 equals…",["9999","10000","9901","10001"],0,"(100 − 1)(100 + 1) = 100² − 1 = 9999."),
+Q("(x + 3)(x + 4) equals…",["x² + 7x + 12","x² + 12","x² + 7x + 7","x² + 3x + 4"],0,"x² + (3 + 4)x + 3 × 4."),
+Q("Factorising x² − 9 gives…",["(x + 3)(x − 3)","(x − 3)²","(x + 9)(x − 1)","(x + 3)²"],0,"x² − 3² = (x + 3)(x − 3)."),
+Q("If a + b = 5 and ab = 6, then a² + b² is…",["13","11","25","37"],0,"a² + b² = (a + b)² − 2ab = 25 − 12 = 13."),
+Q("Factorising x² + 6x + 9 gives…",["(x + 3)²","(x − 3)²","(x + 9)(x − 1)","(x + 3)(x − 3)"],0,"x² + 2(3)x + 3² = (x + 3)²."),
+Q("52² − 48² equals…",["400","4","100","200"],0,"(52 − 48)(52 + 48) = 4 × 100.")]},
+{t:"I’m Up and Down, and Round and Round",qs:[
+Q("The distance from the centre of a circle to any point on it is the…",["Radius","Diameter","Chord","Arc"],0,"That fixed distance is the radius."),
+Q("The longest chord of a circle is the…",["Radius","Diameter","Arc","Tangent"],1,"A chord through the centre is the diameter."),
+Q("If the radius is 7 cm, the diameter is…",["14 cm","7 cm","3.5 cm","49 cm"],0,"Diameter = 2 × radius."),
+Q("An angle in a semicircle is…",["60°","90°","120°","180°"],1,"The angle in a semicircle is a right angle."),
+Q("The angle an arc makes at the centre is ___ the angle it makes at the rest of the circle.",["Half","Equal to","Double","Triple"],2,"The central angle is double the angle at the circumference."),
+Q("Opposite angles of a cyclic quadrilateral add up to…",["90°","180°","270°","360°"],1,"They are supplementary."),
+Q("Equal chords of a circle subtend ___ angles at the centre.",["Equal","Unequal","Right","Zero"],0,"Equal chords subtend equal angles at the centre."),
+Q("A perpendicular from the centre to a chord…",["Bisects the chord","Doubles the chord","Is parallel to it","Is longer than the radius"],0,"It cuts the chord into two equal parts."),
+Q("Angles in the same segment of a circle are…",["Equal","Supplementary","Complementary","Double each other"],0,"They are subtended by the same arc."),
+Q("One angle of a cyclic quadrilateral is 70°. The opposite angle is…",["110°","70°","90°","290°"],0,"Opposite angles sum to 180°, so 180° − 70° = 110°.")]},
+{t:"Measuring Space: Perimeter and Area",qs:[]},
+{t:"The Mathematics of Maybe: Introduction to Probability",qs:[]},
+{t:"Predicting What Comes Next: Exploring Sequences and Progressions",qs:[]},
+{t:"Propositions and their Converses",qs:[]},
+{t:"How Quantities Combine: Understanding Data",qs:[]},
+{t:"The World of Algorithms",qs:[]},
+{t:"Quadrilaterals",qs:[]},
+{t:"Two Variables, One Line",qs:[]},
+{t:"Math of Space: Surface Area and Volume",qs:[]}
+];
+var CH10=['Real Numbers','Polynomials','Pair of Linear Equations in Two Variables','Quadratic Equations','Arithmetic Progressions','Triangles','Coordinate Geometry','Introduction to Trigonometry','Some Applications of Trigonometry','Circles','Areas Related to Circles','Surface Areas and Volumes','Statistics','Probability'].map(function(t){return{t:t,qs:[]}});
+/* PDF files are stored in the separate PDFs/class 9th/ and PDFs/class 10th/ folders. */
+
+CH9[0].pdf={p:'PDFs/class 9th/Class-9_Chapter-01_orienting-yourself-the-use-of-coordinates_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-01_orienting-yourself-the-use-of-coordinates_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-01_orienting-yourself-the-use-of-coordinates_Solutions.pdf'};CH9[0].d={p:'40 questions plus 10 diagram-based questions (Q41 to Q50).',t:'25 questions, 75 marks, 2 hours 30 minutes.',s:'Worked solutions to the 10 diagram-based questions (Q41 to Q50).'};
+
+CH9[1].pdf={p:'PDFs/class 9th/Class-9_Chapter-02_introduction-to-linear-polynomials_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-02_introduction-to-linear-polynomials_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-02_introduction-to-linear-polynomials_Solutions.pdf'};CH9[1].d={p:'50 questions, 150 marks, in sections from 1 to 5 marks.',t:'25 questions, 75 marks, 2 hours 30 minutes.',s:'Worked solutions to all 50 questions of the question bank.'};
+
+CH9[2].pdf={p:'PDFs/class 9th/Class-9_Chapter-03_the-world-of-numbers_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-03_the-world-of-numbers_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-03_the-world-of-numbers_Solutions.pdf'};CH9[2].d={p:'50 questions, 150 marks, with a final answer key.',t:'25 questions, 75 marks, 2 hours 30 minutes.',s:'Worked solutions to the 50-question bank and to the test paper.'};
+
+CH9[3].pdf={p:'PDFs/class 9th/Class-9_Chapter-04_exploring-algebraic-identities_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-04_exploring-algebraic-identities_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-04_exploring-algebraic-identities_Solutions.pdf'};CH9[3].d={p:'50 questions, 150 marks, in sections from 1 to 5 marks.',t:'25 questions, 75 marks, 2 hours 30 minutes.',s:'Worked solutions to all 50 questions of the question bank.'};
+
+CH9[4].pdf={p:'PDFs/class 9th/Class-9_Chapter-05_i-m-up-and-down-and-round-and-round_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-05_i-m-up-and-down-and-round-and-round_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-05_i-m-up-and-down-and-round-and-round_Solutions.pdf'};CH9[4].d={p:'50 questions, 150 marks, plus 10 diagram-based questions.',t:'25 questions, 75 marks, 2 hours 30 minutes.',s:'Complete solutions to the 50-question bank, its diagram-based questions and the test paper.'};
+
+CH9[5].pdf={p:'PDFs/class 9th/Class-9_Chapter-06_measuring-space-perimeter-and-area_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-06_measuring-space-perimeter-and-area_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-06_measuring-space-perimeter-and-area_Solutions.pdf'};CH9[5].d={p:'50 questions, 150 marks, plus 10 diagram-based questions.',t:'25 questions, 75 marks, 2 hours 30 minutes.',s:'Complete solutions to the 50-question bank and its diagram-based questions.'};
+
+CH9[6].pdf={p:'PDFs/class 9th/Class-9_Chapter-07_the-mathematics-of-maybe-introduction-to-probability_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-07_the-mathematics-of-maybe-introduction-to-probability_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-07_the-mathematics-of-maybe-introduction-to-probability_Solutions.pdf'};CH9[6].d={p:'50 questions, 150 marks, in sections from 1 to 5 marks.',t:'25 questions, 75 marks, 2 hours 30 minutes, plus an optional bonus question.',s:'Complete worked solutions to all 50 questions of the question bank.'};
+
+CH9[7].pdf={p:'PDFs/class 9th/Class-9_Chapter-08_predicting-what-comes-next-exploring-sequences-and-progressions_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-08_predicting-what-comes-next-exploring-sequences-and-progressions_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-08_predicting-what-comes-next-exploring-sequences-and-progressions_Solutions.pdf'};CH9[7].d={p:'50 questions, 150 marks, in sections from 1 to 5 marks.',s:'Fully worked solutions to all 50 questions.'};
+
+CH9[8].pdf={p:'PDFs/class 9th/Class-9_Chapter-09_propositions-and-their-converses_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-09_propositions-and-their-converses_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-09_propositions-and-their-converses_Solutions.pdf'};CH9[8].d={p:'50 questions, 150 marks, in sections from 1 to 5 marks.',t:'25 questions, 75 marks, 2 hours 30 minutes.',s:'Complete solutions to all 50 questions of the question bank.'};
+
+CH9[9].pdf={p:'PDFs/class 9th/Class-9_Chapter-10_how-quantities-combine-understanding-data_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-10_how-quantities-combine-understanding-data_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-10_how-quantities-combine-understanding-data_Solutions.pdf'};CH9[9].d={p:'50 questions, 150 marks, plus 10 diagram-based questions.',t:'25 questions, 75 marks, 2 hours 30 minutes.',s:'Complete solutions to the 50-question bank and its diagram-based questions.'};
+
+CH9[10].pdf={p:'PDFs/class 9th/Class-9_Chapter-11_the-world-of-algorithms_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-11_the-world-of-algorithms_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-11_the-world-of-algorithms_Solutions.pdf'};CH9[10].d={p:'50 questions, 150 marks, in sections from 1 to 5 marks.',t:'25 questions, 75 marks, 2 hours 30 minutes.',s:'Complete solutions to all 50 questions of the question bank.'};
+CH9[11].pdf={p:'PDFs/class 9th/Class-9_Chapter-12_quadrilaterals_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-12_quadrilaterals_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-12_quadrilaterals_Solutions.pdf'};CH9[11].d={p:'Practice questions covering the whole chapter.', t:'25 questions, 75 marks, 2 hours 30 minutes.', s:'Worked solutions for this chapter.'};
+CH9[12].pdf={p:'PDFs/class 9th/Class-9_Chapter-13_two-variables-one-line_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-13_two-variables-one-line_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-13_two-variables-one-line_Solutions.pdf'};CH9[12].d={p:'Practice questions covering the whole chapter.', t:'A full chapter test paper to practise under exam conditions.', s:'Worked solutions to all 50 questions.'};
+CH9[13].pdf={p:'PDFs/class 9th/Class-9_Chapter-14_math-of-space-surface-area-and-volume_Question-Bank.pdf', t:'PDFs/class 9th/Class-9_Chapter-14_math-of-space-surface-area-and-volume_Test-Paper.pdf', s:'PDFs/class 9th/Class-9_Chapter-14_math-of-space-surface-area-and-volume_Solutions.pdf'};CH9[13].d={p:'50 questions, 150 marks, in sections from 1 to 5 marks.', t:'25 questions, 75 marks, 2 hours 30 minutes.', s:'Worked solutions to all 50 questions of the question bank.'};
+/* ---- PDF folders on GitHub ----
+   PDFs/
+     class 9th/   (Class 9 PDFs)
+     class 10th/  (Class 10 PDFs)
+   Class 10 helper: after uploading the 3 PDFs for a chapter into PDFs/class 10th/, add one line, e.g.
+   addPdfs(CH10,10,1,'real-numbers');
+   which expects these file names:
+   PDFs/class 10th/Class-10_Chapter-01_real-numbers_Question-Bank.pdf
+   PDFs/class 10th/Class-10_Chapter-01_real-numbers_Test-Paper.pdf
+   PDFs/class 10th/Class-10_Chapter-01_real-numbers_Solutions.pdf */
+var PDF_DIR={9:'PDFs/class 9th/',10:'PDFs/class 10th/'};
+function addPdfs(list,c,n,slug){var d=PDF_DIR[c]+'Class-'+c+'_Chapter-'+(n<10?'0':'')+n+'_'+slug+'_';list[n-1].pdf={p:d+'Question-Bank.pdf',t:d+'Test-Paper.pdf',s:d+'Solutions.pdf'}}
+
+/* ---- CLASS 10 PDF FILES ----
+   Keep the filenames exactly as generated by addPdfs().
+   Put each chapter's three PDFs inside PDFs/class 10th/.
+*/
+addPdfs(CH10,10,1,'real-numbers');
+addPdfs(CH10,10,2,'polynomials');
+addPdfs(CH10,10,3,'pair-of-linear-equations-in-two-variables');
+addPdfs(CH10,10,4,'quadratic-equations');
+addPdfs(CH10,10,5,'arithmetic-progressions');
+addPdfs(CH10,10,6,'triangles');
+addPdfs(CH10,10,7,'coordinate-geometry');
+addPdfs(CH10,10,8,'introduction-to-trigonometry');
+addPdfs(CH10,10,9,'some-applications-of-trigonometry');
+addPdfs(CH10,10,10,'circles');
+addPdfs(CH10,10,11,'areas-related-to-circles');
+addPdfs(CH10,10,12,'surface-areas-and-volumes');
+addPdfs(CH10,10,13,'statistics');
+addPdfs(CH10,10,14,'probability');
+/* ---- More quizzes ---- */
+CH9[5].qs=[
+Q("Area of a rectangle 8 cm by 5 cm is…",["26 cm²","40 cm²","13 cm²","80 cm²"],1,"8 × 5 = 40 cm²."),
+Q("Perimeter of a square of side 6 cm is…",["36 cm","12 cm","24 cm","18 cm"],2,"4 × 6 = 24 cm."),
+Q("Area of a triangle with base 10 cm and height 6 cm is…",["60 cm²","30 cm²","16 cm²","36 cm²"],1,"½ × 10 × 6 = 30 cm²."),
+Q("Area of a circle of radius 7 cm (π = 22/7) is…",["44 cm²","49 cm²","154 cm²","22 cm²"],2,"(22/7) × 7 × 7 = 154 cm².")];
+CH9[6].qs=[
+Q("Probability of getting a head in one coin toss is…",["1","½","¼","0"],1,"One favourable outcome out of two equally likely ones."),
+Q("Probability of an impossible event is…",["0","1","½","−1"],0,"It can never happen."),
+Q("Probability of rolling an even number on a die is…",["⅙","⅓","½","⅔"],2,"2, 4, 6 give 3/6 = ½."),
+Q("Which cannot be a probability?",["0.4","1","1.2","0"],2,"Probability always lies between 0 and 1.")];
+CH9[7].qs=[
+Q("Next term of 2, 5, 8, 11, … is…",["13","14","15","12"],1,"Common difference 3, so 11 + 3 = 14."),
+Q("Common difference of 7, 4, 1, −2, … is…",["3","−3","4","−4"],1,"4 − 7 = −3."),
+Q("10th term of 3, 6, 9, … is…",["27","33","30","36"],2,"3 × 10 = 30."),
+Q("Next term of 2, 4, 8, 16, … is…",["20","24","30","32"],3,"Each term doubles: 16 × 2 = 32.")];
+CH9[8].qs=[
+Q("The converse of “If P, then Q” is…",["If Q, then P","If P, then not Q","P and Q","Q or P"],0,"The converse swaps the hypothesis and conclusion."),
+Q("Converse of “If a number is divisible by 4, it is even” is…",["If a number is even, it is divisible by 4","If a number is divisible by 4, it is odd","If a number is odd, it is not even","None of these"],0,"Swap the two parts."),
+Q("Is that converse true?",["Yes, always","No, 6 is even but not divisible by 4","Yes, for all even numbers","Cannot say"],1,"The counterexample 6 disproves it."),
+Q("A single example that shows a statement is false is a…",["Proof","Counterexample","Axiom","Definition"],1,"A counterexample disproves a statement.")];
+CH9[9].qs=[
+Q("Mean of 2, 4, 6, 8, 10 is…",["5","6","8","30"],1,"30 ÷ 5 = 6."),
+Q("Median of 3, 7, 5, 9, 1 is…",["7","5","3","9"],1,"Sorted: 1, 3, 5, 7, 9. The middle value is 5."),
+Q("Mode of 2, 3, 3, 5, 3, 7 is…",["2","5","3","7"],2,"3 appears most often."),
+Q("Range of 4, 9, 15, 20 is…",["16","11","20","24"],0,"20 − 4 = 16.")];
+CH9[10].qs=[
+Q("An algorithm is…",["A random guess","A step-by-step procedure to solve a problem","A type of graph","A number pattern"],1,"It is a finite, ordered set of clear steps."),
+Q("In a flowchart, a diamond shows…",["Start","Input","A decision","Stop"],2,"The diamond is a yes/no decision."),
+Q("A good algorithm has…",["Ambiguous steps","Infinite steps","Clear, finite steps","No output"],2,"Steps must be clear and must end."),
+Q("To find the larger of two numbers, an algorithm needs…",["A comparison","A circle","A division by zero","A graph"],0,"You compare the two numbers.")];
+CH9[11].qs=[
+Q("Sum of the angles of a quadrilateral is…",["180°","270°","360°","540°"],2,"Two triangles: 2 × 180° = 360°."),
+Q("The diagonals of a parallelogram…",["Are equal","Bisect each other","Are perpendicular","Are parallel"],1,"They bisect each other."),
+Q("A parallelogram with all sides equal is a…",["Rectangle","Trapezium","Rhombus","Kite"],2,"That is a rhombus."),
+Q("Opposite sides of a parallelogram are…",["Equal and parallel","Only equal","Perpendicular","Unequal"],0,"They are equal and parallel.")];
+CH9[12].qs=[
+Q("The graph of a linear equation in two variables is…",["A circle","A straight line","A parabola","A point"],1,"It is always a straight line."),
+Q("Which point lies on x + y = 5?",["(2, 3)","(1, 1)","(3, 3)","(0, 0)"],0,"2 + 3 = 5."),
+Q("If x = 2 satisfies 3x + y = 10, then y is…",["2","3","4","6"],2,"6 + y = 10, so y = 4."),
+Q("The line y = 4 is…",["Parallel to the y-axis","Parallel to the x-axis","Through the origin","Vertical"],1,"y is constant, so the line is horizontal.")];
+CH9[13].qs=[
+Q("Volume of a cube of side 3 cm is…",["9 cm³","18 cm³","27 cm³","54 cm³"],2,"3³ = 27."),
+Q("Total surface area of a cube of side 2 cm is…",["8 cm²","24 cm²","12 cm²","16 cm²"],1,"6 × 2² = 24."),
+Q("Volume of a cuboid 4 cm × 3 cm × 2 cm is…",["24 cm³","9 cm³","12 cm³","48 cm³"],0,"4 × 3 × 2 = 24."),
+Q("Curved surface area of a cylinder is…",["πr²h","2πrh","πrl","4πr²"],1,"CSA = 2πrh.")];
+CH10[0].qs=[
+Q("HCF of 12 and 18 is…",["3","6","12","36"],1,"12 = 2²·3 and 18 = 2·3², so HCF = 2·3 = 6."),
+Q("LCM of 4 and 6 is…",["24","2","12","10"],2,"The smallest common multiple is 12."),
+Q("√2 is…",["Rational","Irrational","An integer","A natural number"],1,"It cannot be written as p/q."),
+Q("HCF × LCM of two numbers equals…",["Their sum","Their difference","Their product","Their quotient"],2,"HCF × LCM = a × b.")];
+CH10[1].qs=[
+Q("Zero of p(x) = x − 4 is…",["−4","0","4","1"],2,"p(4) = 0."),
+Q("Degree of x³ + 2x − 1 is…",["1","2","3","0"],2,"The highest power is 3."),
+Q("Sum of zeroes of x² − 5x + 6 is…",["−5","5","6","−6"],1,"−b/a = 5."),
+Q("Product of zeroes of x² − 5x + 6 is…",["5","−5","6","−6"],2,"c/a = 6.")];
+CH10[2].qs=[
+Q("Solution of x + y = 5 and x − y = 1 is…",["(3, 2)","(2, 3)","(4, 1)","(1, 4)"],0,"Adding gives 2x = 6, so x = 3 and y = 2."),
+Q("If a₁/a₂ ≠ b₁/b₂, the pair has…",["No solution","Infinitely many","Exactly one solution","Two solutions"],2,"The lines intersect at one point."),
+Q("Parallel lines mean the system has…",["No solution","One solution","Infinite solutions","Two solutions"],0,"Parallel lines never meet."),
+Q("If 2x + 3y = 12 and x = 3, then y is…",["1","2","3","4"],1,"6 + 3y = 12, so y = 2.")];
+CH10[3].qs=[
+Q("Roots of x² − 5x + 6 = 0 are…",["2 and 3","−2 and −3","1 and 6","−1 and 6"],0,"(x − 2)(x − 3) = 0."),
+Q("Discriminant of ax² + bx + c = 0 is…",["b² − 4ac","b² + 4ac","4ac − b","b − 4ac"],0,"D = b² − 4ac."),
+Q("If D = 0, the roots are…",["Real and distinct","Real and equal","Not real","Cannot say"],1,"One repeated real root."),
+Q("Which is a quadratic equation?",["x + 2 = 0","x² + 3x + 1 = 0","x³ = 1","1/x = 2"],1,"The highest power is 2.")];
+CH10[4].qs=[
+Q("Common difference of 5, 8, 11, … is…",["2","3","4","5"],1,"8 − 5 = 3."),
+Q("10th term of 2, 5, 8, … is…",["29","30","32","26"],0,"a + 9d = 2 + 27 = 29."),
+Q("Sum of the first 10 natural numbers is…",["45","50","55","60"],2,"10 × 11 / 2 = 55."),
+Q("The nth term of an AP is…",["a + nd","a + (n − 1)d","a − (n + 1)d","nd"],1,"aₙ = a + (n − 1)d.")];
+CH10[5].qs=[
+Q("Corresponding angles of similar triangles are…",["Equal","Double","Supplementary","Unrelated"],0,"Similar triangles have equal angles."),
+Q("A right triangle has legs 3 and 4. The hypotenuse is…",["5","6","7","√7"],0,"9 + 16 = 25."),
+Q("Sides 5, 12, 13 form a…",["Acute triangle","Obtuse triangle","Right triangle","Not a triangle"],2,"5² + 12² = 13²."),
+Q("A line parallel to one side of a triangle divides the other two sides…",["Equally always","In the same ratio","In ratio 1 : 2","Randomly"],1,"This is the Basic Proportionality Theorem.")];
+CH10[6].qs=[
+Q("Distance between (0, 0) and (6, 8) is…",["10","14","12","8"],0,"√(36 + 64) = 10."),
+Q("Midpoint of (2, 3) and (4, 7) is…",["(3, 5)","(6, 10)","(2, 4)","(3, 4)"],0,"Average the coordinates."),
+Q("A point on the x-axis has y-coordinate…",["1","0","x","−1"],1,"On the x-axis, y = 0."),
+Q("Distance between (1, 1) and (4, 5) is…",["3","4","5","7"],2,"√(9 + 16) = 5.")];
+CH10[7].qs=[
+Q("sin 30° equals…",["½","√3/2","1","0"],0,"Standard value."),
+Q("tan 45° equals…",["0","½","1","√3"],2,"Standard value."),
+Q("sin²θ + cos²θ equals…",["0","1","2","tan θ"],1,"The basic identity."),
+Q("cos 60° equals…",["√3/2","1","0","½"],3,"Standard value.")];
+CH10[8].qs=[
+Q("The angle of elevation is measured…",["From the vertical","Upward from the horizontal","Downward from the ground","At the object"],1,"It is the angle above the horizontal line of sight."),
+Q("A tower is seen at 45° from 20 m away. Its height is…",["10 m","20 m","40 m","√20 m"],1,"h = 20 × tan 45° = 20."),
+Q("Angle of depression equals the angle of elevation from the other point because they are…",["Alternate angles","Vertical angles","Right angles","Supplementary"],0,"Parallel horizontals give alternate angles."),
+Q("A 10 m ladder reaches 8 m up a wall. Its foot is how far from the wall?",["2 m","4 m","6 m","18 m"],2,"√(100 − 64) = 6.")];
+CH10[9].qs=[
+Q("A tangent meets a circle at…",["No point","Exactly one point","Two points","Many points"],1,"That is the definition of a tangent."),
+Q("A tangent is perpendicular to the radius at…",["The centre","The point of contact","Any point","The chord"],1,"The radius to the point of contact is perpendicular."),
+Q("Tangents from an external point are…",["Equal in length","Unequal","Parallel","Perpendicular"],0,"They are equal in length."),
+Q("Tangents through a point on the circle number…",["0","1","2","Infinite"],1,"Only one tangent exists there.")];
+CH10[10].qs=[
+Q("Circumference of a circle of radius 7 cm (π = 22/7) is…",["22 cm","44 cm","154 cm","14 cm"],1,"2 × 22/7 × 7 = 44."),
+Q("Area of a semicircle of radius r is…",["πr²","πr²/2","2πr","πr"],1,"Half of πr²."),
+Q("Arc length for angle θ in a circle of radius r is…",["(θ/360) × 2πr","(θ/360) × πr²","θ × r²","2πrθ"],0,"A fraction of the circumference."),
+Q("Area of a quadrant of a circle of radius 14 cm (π = 22/7) is…",["154 cm²","616 cm²","308 cm²","77 cm²"],0,"¼ × 22/7 × 196 = 154.")];
+CH10[11].qs=[
+Q("Volume of a sphere of radius r is…",["4πr²","(4/3)πr³","πr²h","2πr³"],1,"V = (4/3)πr³."),
+Q("Surface area of a sphere is…",["4πr²","2πr²","πr²","(4/3)πr³"],0,"A = 4πr²."),
+Q("Volume of a cone is…",["πr²h","(1/3)πr²h","2πrh","πrl"],1,"One third of the cylinder."),
+Q("Total surface area of a cylinder is…",["2πrh","πr²h","2πr(r + h)","πr(r + l)"],2,"Curved surface plus two circular ends.")];
+CH10[12].qs=[
+Q("Mean of 5, 10, 15 is…",["5","10","15","30"],1,"30 ÷ 3 = 10."),
+Q("Class mark of the class 10–20 is…",["10","15","20","30"],1,"(10 + 20)/2 = 15."),
+Q("The empirical relation is Mode =…",["3 Median − 2 Mean","2 Median − 3 Mean","Mean + Median","3 Mean − 2 Median"],0,"Mode = 3 Median − 2 Mean."),
+Q("The median divides data into…",["Two equal halves","Three parts","Four parts","Ten parts"],0,"Half the values lie below it.")];
+CH10[13].qs=[
+Q("P(E) + P(not E) equals…",["0","1","2","½"],1,"The two probabilities add to 1."),
+Q("Probability of drawing an ace from 52 cards is…",["1/13","1/4","4/13","1/52"],0,"4/52 = 1/13."),
+Q("Probability of a sure event is…",["0","½","1","2"],2,"It always happens."),
+Q("When a die is rolled, P(number greater than 4) is…",["1/6","1/3","1/2","2/3"],1,"5 and 6 give 2/6 = 1/3.")];
+/* ---- App code ---- */
+var cls=9,CH=CH9,owned={},all=false,cur=null,i=0,score=0,done=false;
+try{owned=JSON.parse(localStorage.getItem('pc_owned')||'{}')}catch(e){owned={}}
+function price(k){return k==='p'?CONFIG.qbPrice:k==='t'?CONFIG.testPrice:CONFIG.solPrice}
+var $=function(id){return document.getElementById(id)};
+var NAMES={p:'Question bank (PDF)',t:'Test paper (PDF)',s:'Solutions (PDF)'};
+function isFree(n,k){return k==='q'||(k==='p'&&n<=CONFIG.freeQB)}
+function access(n,k){return all||!!owned[cls+'-bundle']||isFree(n,k)||!!owned[cls+'-'+n+k]}
+function pdfUrl(n,k){return (CH[n-1].pdf||{})[k]||''}
+function home(){
+  $('home').classList.remove('hide');$('quiz').classList.add('hide');$('landing').classList.add('hide');$('lib').classList.add('hide');
+  $('grid').innerHTML=CH.map(function(c,k){var n=k+1;
+    return '<button class="ch" data-n="'+n+'"><span class="n">'+n+'</span><span class="t">'+c.t+'</span><span class="m"><span>Quiz + PDFs</span><span class="tag free">Free quiz</span></span></button>'}).join('');
+  $('clspill').textContent='Class '+cls+' Maths';$('owned').textContent='MCQ quizzes are free';$('c9').className='btn'+(cls===9?'':' ghost');$('c10').className='btn'+(cls===10?'':' ghost');
+  $('bundleNote').textContent='Every quiz, question bank, test paper and solutions set in all '+CH.length+' chapters of Class '+cls+' for ₹'+CONFIG.bundle+'.';$('bundleBtn').textContent=owned[cls+'-bundle']||all?'Bundle unlocked':'Unlock bundle – ₹'+CONFIG.bundle;
+  
+  window.scrollTo(0,0);
+}
+function detail(n){
+  cur=n;$('home').classList.add('hide');$('quiz').classList.remove('hide');
+  var rows=[['q','Practice quiz',CH[n-1].qs.length+' multiple-choice questions with instant feedback and explanations.'],['p',NAMES.p,'Practice questions covering the whole chapter.'],['t',NAMES.t,'A full chapter test paper to practise under exam conditions.']];
+  if(pdfUrl(n,'s') || (cls===9 && n>=12 && n<=14))rows.splice(2,0,['s',NAMES.s,'Worked answers for this chapter\'s questions.']);
+  $('quiz').innerHTML='<button class="btn ghost" id="back">All chapters</button><h2 style="margin:16px 0 4px">Chapter '+n+': '+CH[n-1].t+'</h2><div class="card">'+rows.map(function(r){
+    var k=r[0],ok=access(n,k),f=k==='q',tag,btn='';
+    if(ok){tag=isFree(n,k)?'Free':'Unlocked';btn='<button class="btn rb" data-k="'+k+'">'+(k==='q'?'Start quiz':'View PDF')+'</button>'}
+    else if(k==='q'){tag='Unlocks with any PDF'}
+    else{tag='₹'+price(k);btn='<button class="btn rb" data-k="'+k+'">Unlock</button>'}
+    return '<div class="rowc"><div><b>'+r[1]+'</b><div class="note">'+((CH[n-1].d||{})[k]||r[2])+'</div></div><div><span class="tag '+(ok?'free':'lock')+'">'+tag+'</span> '+btn+'</div></div>'}).join('')+'</div><p class="note" id="st"></p>';
+  $('back').onclick=home;
+  document.querySelectorAll('.rb').forEach(function(b){b.onclick=function(){var k=b.dataset.k;if(!access(n,k))return buy(n,k);if(k==='q')return start(n);view(n,k)}});
+  window.scrollTo(0,0);
+}
+function loadScript(src){return new Promise(function(res,rej){var s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
+var PJ='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+function ensurePdfjs(){
+  if(window.pdfjsLib&&window.pdfjsWorker)return Promise.resolve();
+  return loadScript(PJ+'pdf.min.js').then(function(){return loadScript(PJ+'pdf.worker.min.js')}).then(function(){pdfjsLib.GlobalWorkerOptions.workerSrc=PJ+'pdf.worker.min.js'});
+}
+function pdfFallback(data){$('vs').textContent='';var bu=URL.createObjectURL(new Blob([data],{type:'application/pdf'}));$('pages').innerHTML='<iframe src="'+bu+'" style="width:100%;height:80vh;border:1px solid var(--line);background:#fff" title="PDF"></iframe>'}
+function openPdf(n,k,url){
+  var u=url||pdfUrl(n,k);$('home').classList.add('hide');$('lib').classList.add('hide');$('quiz').classList.remove('hide');
+  if(!u){$('st').textContent='This PDF has not been added yet.';return}
+  $('quiz').innerHTML='<button class="btn ghost" id="back">Back</button><h2 style="margin:16px 0 4px">Chapter '+n+': '+({p:'Question bank',t:'Test paper',s:'Solutions'})[k]+'</h2><p class="note" id="vs">Loading PDF\u2026</p><div id="pages"></div>';
+  $('back').onclick=function(){detail(n)};
+  window.scrollTo(0,0);
+  fetch(u).then(function(r){if(!r.ok)throw new Error('Could not load PDF: '+r.status);return r.arrayBuffer()}).then(function(data){
+    return ensurePdfjs().then(function(){return pdfjsLib.getDocument({data:data}).promise}).then(function(pdf){
+      $('vs').textContent='';
+      var box=$('pages'),w=Math.min(box.clientWidth||700,900),chain=Promise.resolve();
+      for(var i=1;i<=pdf.numPages;i++)(function(i){chain=chain.then(function(){return pdf.getPage(i).then(function(pg){
+        var sc=w/pg.getViewport({scale:1}).width,dpr=window.devicePixelRatio||1,v=pg.getViewport({scale:sc*dpr});
+        var c=document.createElement('canvas');c.width=v.width;c.height=v.height;
+        c.style.cssText='display:block;margin:0 auto 12px;border:1px solid var(--line);background:#fff;width:'+w+'px;height:'+(v.height/dpr)+'px';
+        c.setAttribute('role','img');c.setAttribute('aria-label','PDF page '+i);
+        box.appendChild(c);return pg.render({canvasContext:c.getContext('2d'),viewport:v}).promise})})})(i);
+      return chain;
+    }).catch(function(){pdfFallback(data)});
+  }).catch(function(){$('vs').textContent='Unable to load this PDF. Please run the app using a local web server and check that the PDFs folder is beside index.html.'});
+}
+function buy(n,k){
+  if(CONFIG.api)return pay(n,k);
+  var one=n!==0;
+  $('mbody').innerHTML='<h2 style="margin:0 0 6px">'+(one?'Unlock: '+NAMES[k]:'Unlock everything')+'</h2><p class="note">'+(one?'Chapter '+n+': '+CH[n-1].t:'Class '+cls+' bundle: all quizzes, question banks, test papers and solutions in every chapter.')+'</p><p><b style="font-size:1.6rem">₹'+(one?price(k):CONFIG.bundle)+'</b></p><p class="note">Demo mode: no real payment is taken. A payment service such as Razorpay can be connected here.</p><div class="row"><button class="btn ghost" id="mx">Not now</button><button class="btn" id="mok">Unlock (demo)</button></div>';
+  $('modal').classList.remove('hide');$('mok').focus();
+  $('mx').onclick=function(){$('modal').classList.add('hide')};
+  $('mok').onclick=function(){if(one){owned[cls+'-'+n+k]=1;try{localStorage.setItem('pc_owned',JSON.stringify(owned))}catch(e){}}else all=true;$('modal').classList.add('hide');if(one)detail(n);else home()};
+}
+function start(n){cur=n;i=0;score=0;done=false;$('home').classList.add('hide');$('quiz').classList.remove('hide');render();window.scrollTo(0,0)}
+function render(){
+  var c=CH[cur-1],qs=c.qs,h='<button class="btn ghost" id="back">Back</button><h2 style="margin:16px 0 4px">Chapter '+cur+' quiz: '+c.t+'</h2>';
+  if(!qs.length){$('quiz').innerHTML=h+'<div class="card"><p><b>Questions for this chapter are being added.</b></p></div>';return bind()}
+  if(done){
+    $('quiz').innerHTML=h+'<div class="card"><div class="big">'+score+'/'+qs.length+'</div><p>'+(score===qs.length?'Perfect score.':score>=qs.length/2?'Good work. Retry to lock in the rest.':'Keep going. Read each explanation and try again.')+'</p><div class="row"><button class="btn" id="again">Try again</button><button class="btn ghost" id="back2">Back to chapter</button></div></div>';
+    $('again').onclick=function(){start(cur)};$('back2').onclick=function(){detail(cur)};return bind()}
+  var q=qs[i];
+  $('quiz').innerHTML=h+'<div class="note">Question '+(i+1)+' of '+qs.length+'</div><div class="prog"><i style="width:'+(i/qs.length*100)+'%"></i></div><div class="card"><div class="q">'+q.q+'</div><div id="opts">'+q.o.map(function(o,k){return '<button class="opt" data-k="'+k+'">'+o+'</button>'}).join('')+'</div><div id="fb"></div></div>';
+  document.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){answer(+b.dataset.k)}});
+  bind();
+}
+function answer(k){
+  var q=CH[cur-1].qs[i];if(k===q.a)score++;
+  document.querySelectorAll('.opt').forEach(function(b,j){b.disabled=true;if(j===q.a)b.classList.add('ok');else if(j===k)b.classList.add('bad')});
+  var last=i===CH[cur-1].qs.length-1;
+  $('fb').innerHTML='<div class="exp"><b>'+(k===q.a?'Correct.':'Not quite.')+'</b> '+q.e+'</div><div class="row"><span></span><button class="btn" id="nx">'+(last?'See score':'Next question')+'</button></div>';
+  $('nx').focus();$('nx').onclick=function(){if(last)done=true;else i++;render()};
+}
+function bind(){var b=$('back');if(b)b.onclick=function(){detail(cur)}}
+$('grid').onclick=function(e){var b=e.target.closest('.ch');if(b)detail(+b.dataset.n)};
+$('bundleBtn').onclick=function(){buy(0)};
+$('modal').onclick=function(e){if(e.target===this)this.classList.add('hide')};
+function setCls(c){cls=c;CH=c===9?CH9:CH10;home()}$('c9').onclick=function(){setCls(9)};$('c10').onclick=function(){setCls(10)};
+/* ---- Landing, library and payments ---- */
+CONFIG.api='https://hjrwqgtzzwjsluyqcfgi.supabase.co/functions/v1/quick-endpoint';/* paste your function URL: https://YOUR-PROJECT.supabase.co/functions/v1/store  (leave empty for demo mode) */
+var code='',TK={question_bank:'p',test_paper:'t',solutions:'s'};
+try{code=localStorage.getItem('pc_code')||''}catch(e){}
+function setCode(c){code=c;try{localStorage.setItem('pc_code',c)}catch(e){}}
+function api(a,b){return fetch(CONFIG.api+'/'+a,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||'Request failed');return j})})}
+function syncOwned(){if(!CONFIG.api||!code)return Promise.resolve([]);return api('library',{library_code:code}).then(function(r){owned={};r.items.forEach(function(i){if(i.product_type==='bundle'){owned[i.class_level+'-bundle']=1;return}owned[i.class_level+'-'+i.chapter_number+TK[i.product_type]]=1});return r.items}).catch(function(){return[]})}
+function view(n,k){if(CONFIG.api&&!isFree(n,k))api('download',{library_code:code,product_id:cls+'-'+n+'-'+k}).then(function(r){openPdf(n,k,r.url)}).catch(function(e){alert(e.message)});else openPdf(n,k)}
+function pay(n,k){
+  api('create-order',{product_id:n?cls+'-'+n+'-'+k:cls+'-bundle',library_code:code}).then(function(o){setCode(o.library_code);
+    return(window.Razorpay?Promise.resolve():loadScript('https://checkout.razorpay.com/v1/checkout.js')).then(function(){
+      new Razorpay({key:o.key,amount:o.amount,currency:'INR',order_id:o.order_id,name:'\u03c0cubed',description:o.title,theme:{color:'#16265c'},
+        handler:function(r){api('verify',r).then(function(v){setCode(v.library_code);return syncOwned()}).then(function(){codeBox(n)}).catch(function(e){alert(e.message+'. If money was taken, open My library and use your code.')})}}).open()})
+  }).catch(function(e){alert(e.message)})}
+function codeBox(n){var back=n?function(){detail(n)}:home;
+  $('mbody').innerHTML='<h2 style="margin:0 0 6px">Payment done</h2><p class="note">Save this library code. You need it to get your PDFs back on another phone or after clearing your browser.</p><div class="q" style="letter-spacing:.05em">'+code+'</div><div class="row"><button class="btn ghost" id="cp">Copy code</button><button class="btn" id="go">Open my PDFs</button></div>';
+  $('modal').classList.remove('hide');
+  $('cp').onclick=function(){try{navigator.clipboard.writeText(code);$('cp').textContent='Copied'}catch(e){}};
+  $('go').onclick=function(){$('modal').classList.add('hide');back()};
+}
+function landing(){['home','quiz','lib'].forEach(function(x){$(x).classList.add('hide')});$('landing').classList.remove('hide');$('clspill').textContent='';$('owned').textContent='';window.scrollTo(0,0)}
+function library(){
+  ['home','quiz','landing'].forEach(function(x){$(x).classList.add('hide')});$('lib').classList.remove('hide');window.scrollTo(0,0);
+  var inp='flex:1;min-width:180px;padding:11px;border:1.5px solid var(--line);border-radius:6px;font:inherit;background:var(--bg);color:var(--ink)';
+  $('lib').innerHTML='<button class="btn ghost" id="lb">Back</button><h2 style="margin:16px 0 4px">My library</h2><div class="card"><div class="note">Your library code. Save it to get your PDFs back on another phone or browser.</div><div class="q">'+(code||'No purchases yet')+'</div><div class="row"><input id="ci" style="'+inp+'" placeholder="PC-XXXX-XXXX-XXXX"><button class="btn" id="cb">Restore</button></div></div><div id="li" style="margin-top:14px"></div>';
+  $('lb').onclick=landing;
+  $('cb').onclick=function(){var v=$('ci').value.trim().toUpperCase();if(v){setCode(v);library()}};
+  if(!CONFIG.api){$('li').innerHTML='<p class="note">Payments are not switched on yet.</p>';return}
+  if(!code)return;
+  $('li').innerHTML='<p class="note">Loading\u2026</p>';
+  syncOwned().then(function(items){
+    $('li').innerHTML=items.length?'<div class="card">'+items.map(function(i,x){return '<div class="rowc"><div><b>'+i.title+'</b><div class="note">Bought '+new Date(i.bought).toLocaleDateString()+'</div></div><button class="btn vb" data-x="'+x+'">View PDF</button></div>'}).join('')+'</div>':'<p class="note">No purchases found for this code.</p>';
+    document.querySelectorAll('.vb').forEach(function(b){b.onclick=function(){var i=items[+b.dataset.x];cls=+i.class_level;CH=cls===9?CH9:CH10;view(i.chapter_number,TK[i.product_type])}})})}
+$('l9').onclick=function(){setCls(9)};$('l10').onclick=function(){setCls(10)};$('libBtn').onclick=library;$('wm').onclick=landing;
+syncOwned();landing();
+</script>
+</body>
+</html>
