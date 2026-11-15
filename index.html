@@ -409,8 +409,11 @@ CONFIG.api='https://hjrwqgtzzwjsluyqcfgi.supabase.co/functions/v1/quick-endpoint
 var code='',TK={question_bank:'p',test_paper:'t',solutions:'s'};
 try{code=localStorage.getItem('pc_code')||''}catch(e){}
 function setCode(c){code=c;try{localStorage.setItem('pc_code',c)}catch(e){}}
-function api(a,b){return fetch(CONFIG.api+'/'+a,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||'Request failed');return j})})}
-function syncOwned(){if(!CONFIG.api||!code)return Promise.resolve([]);return api('library',{library_code:code}).then(function(r){owned={};r.items.forEach(function(i){if(i.product_type==='bundle'){owned[i.class_level+'-bundle']=1;return}owned[i.class_level+'-'+i.chapter_number+TK[i.product_type]]=1});return r.items}).catch(function(){return[]})}
+var dev='';try{dev=localStorage.getItem('pc_dev')||''}catch(e){}
+if(!dev){dev=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now())+Math.random().toString(36).slice(2);try{localStorage.setItem('pc_dev',dev)}catch(e){}}
+var libErr='';
+function api(a,b){return fetch(CONFIG.api+'/'+a,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({device_id:dev},b))}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||'Request failed');return j})})}
+function syncOwned(){libErr='';if(!CONFIG.api||!code)return Promise.resolve([]);return api('library',{library_code:code}).then(function(r){owned={};r.items.forEach(function(i){if(i.product_type==='bundle'){owned[i.class_level+'-bundle']=1;return}owned[i.class_level+'-'+i.chapter_number+TK[i.product_type]]=1});return r.items}).catch(function(e){libErr=e.message;return[]})}
 function view(n,k){if(CONFIG.api&&!isFree(n,k))api('download',{library_code:code,product_id:cls+'-'+n+'-'+k}).then(function(r){openPdf(n,k,r.url)}).catch(function(e){alert(e.message)});else openPdf(n,k)}
 function pay(n,k){
   api('create-order',{product_id:n?cls+'-'+n+'-'+k:cls+'-bundle',library_code:code}).then(function(o){setCode(o.library_code);
@@ -419,7 +422,7 @@ function pay(n,k){
         handler:function(r){api('verify',r).then(function(v){setCode(v.library_code);return syncOwned()}).then(function(){codeBox(n)}).catch(function(e){alert(e.message+'. If money was taken, open My library and use your code.')})}}).open()})
   }).catch(function(e){alert(e.message)})}
 function codeBox(n){var back=n?function(){detail(n)}:home;
-  $('mbody').innerHTML='<h2 style="margin:0 0 6px">Payment done</h2><p class="note">Save this library code. You need it to get your PDFs back on another phone or after clearing your browser.</p><div class="q" style="letter-spacing:.05em">'+code+'</div><div class="row"><button class="btn ghost" id="cp">Copy code</button><button class="btn" id="go">Open my PDFs</button></div>';
+  $('mbody').innerHTML='<h2 style="margin:0 0 6px">Payment done</h2><p class="note">Save this library code. You need it to get your PDFs back on another phone or after clearing your browser. It works on up to 2 devices.</p><div class="q" style="letter-spacing:.05em">'+code+'</div><div class="row"><button class="btn ghost" id="cp">Copy code</button><button class="btn" id="go">Open my PDFs</button></div>';
   $('modal').classList.remove('hide');
   $('cp').onclick=function(){try{navigator.clipboard.writeText(code);$('cp').textContent='Copied'}catch(e){}};
   $('go').onclick=function(){$('modal').classList.add('hide');back()};
@@ -435,8 +438,9 @@ function library(){
   if(!code)return;
   $('li').innerHTML='<p class="note">Loading\u2026</p>';
   syncOwned().then(function(items){
-    $('li').innerHTML=items.length?'<div class="card">'+items.map(function(i,x){return '<div class="rowc"><div><b>'+i.title+'</b><div class="note">Bought '+new Date(i.bought).toLocaleDateString()+'</div></div><button class="btn vb" data-x="'+x+'">View PDF</button></div>'}).join('')+'</div>':'<p class="note">No purchases found for this code.</p>';
-    document.querySelectorAll('.vb').forEach(function(b){b.onclick=function(){var i=items[+b.dataset.x];cls=+i.class_level;CH=cls===9?CH9:CH10;view(i.chapter_number,TK[i.product_type])}})})}
+    if(libErr){$('li').innerHTML='<p class="note">'+libErr+'</p>';return}
+    $('li').innerHTML=items.length?'<div class="card">'+items.map(function(i,x){return '<div class="rowc"><div><b>'+i.title+'</b><div class="note">Bought '+new Date(i.bought).toLocaleDateString()+'</div></div><button class="btn vb" data-x="'+x+'">'+(i.product_type==='bundle'?'Open chapters':'View PDF')+'</button></div>'}).join('')+'</div>':'<p class="note">No purchases found for this code.</p>';
+    document.querySelectorAll('.vb').forEach(function(b){b.onclick=function(){var i=items[+b.dataset.x];if(i.product_type==='bundle'){setCls(+i.class_level);return}cls=+i.class_level;CH=cls===9?CH9:CH10;view(i.chapter_number,TK[i.product_type])}})})}
 $('l9').onclick=function(){setCls(9)};$('l10').onclick=function(){setCls(10)};$('libBtn').onclick=library;$('wm').onclick=landing;
 syncOwned();landing();
 </script>
